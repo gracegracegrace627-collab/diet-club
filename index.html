@@ -1,172 +1,270 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>减肥论坛·隐藏版</title>
-<style>
-body {
-  font-family: "Microsoft YaHei", sans-serif;
-  background: linear-gradient(180deg, #f8f8f8, #ddd);
-  text-align: center;
-  padding-top: 6%;
-  color: #222;
-  transition: background 1s;
-}
-#box {
-  background: #fff;
-  padding: 30px 40px;
-  display: inline-block;
-  width: 500px;
-  border-radius: 15px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.15);
-}
-#text {
-  text-align: left;
-  min-height: 180px;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-button {
-  font-size: 1em;
-  padding: 8px 16px;
-  margin: 5px;
-  border: none;
-  border-radius: 6px;
-  background: #0078d7;
-  color: white;
-  cursor: pointer;
-}
-button:hover { background: #005fa3; }
-.fade {
-  animation: fadein 1s;
-}
-@keyframes fadein {
-  from { opacity: 0; } to { opacity: 1; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小A的桌面 - 晴朗轻体馆入口</title>
+  <style>
+    :root{
+      --blue:#5BC0EB;
+      --yellow:#FDE74C;
+      --green:#9BC53D;
+      --coral:#FA7921;
+    }
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(120deg, rgba(20,60,120,0.35), rgba(255,255,255,0.05)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Noto Sans SC', 'Poppins', sans-serif;
+      position: relative;
+    }
+
+    .note {
+      background: #FFF9C4;
+      width: 520px;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      transform: rotate(-1.5deg);
+      position: relative;
+      z-index: 1;
+    }
+
+    .note::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 64px;
+      height: 22px;
+      background: #F06292;
+      border-radius: 6px;
+    }
+
+    h2 { text-align:center; color:#333; margin:0 0 8px 0 }
+    p { font-size: 1rem; line-height:1.8; color:#333; text-align:center; white-space: pre-line; }
+
+    button {
+      display: block;
+      margin: 1.2rem auto 0;
+      background: var(--blue);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 26px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    }
+    button:hover{ transform: translateY(-3px); background: var(--coral)}
+
+    /* fake browser overlay */
+    .browser-overlay{
+      position: fixed;
+      inset: 6vh 8vw;
+      background: linear-gradient(to bottom right,#ffffffee,#f7fbff);
+      border-radius: 12px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .browser-header{
+      height: 64px;
+      display:flex;align-items:center;padding:0 16px;gap:12px;background:linear-gradient(90deg,var(--yellow),#fff);
+    }
+    .gugu-logo{ font-weight:700; color:var(--blue); font-size:1.4rem }
+    .searchbar{ flex:1; display:flex; align-items:center; gap:8px }
+    .searchbar input{ flex:1; padding:10px 12px;border-radius:8px;border:1px solid #ddd;font-size:0.95rem }
+    .searchbar button{ padding:8px 12px;border-radius:8px;border:none;background:var(--blue);color:white;cursor:pointer }
+    .browser-body{ flex:1; display:flex; padding:18px; gap:18px; overflow:auto }
+
+    .results{ flex:2; }
+    .result-card{ background:white;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06); margin-bottom:12px }
+    .result-card h3{ margin:0 0 6px 0; color:var(--blue) }
+    .result-card p{ margin:0; color:#666 }
+
+    .sidebar{ width:260px }
+    .bookmarks{ background:#fff9ea;padding:12px;border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.04) }
+    .bookmark-item{ padding:8px;border-radius:8px; display:flex;justify-content:space-between;align-items:center; margin-bottom:8px; background:white }
+    .bookmark-item a{ text-decoration:none; color:var(--blue); font-weight:600 }
+
+    .browser-footer{ height:56px; display:flex; align-items:center; gap:12px; padding:8px 16px; background:#fbfbfb; border-top:1px solid #eee }
+    .close-btn{ margin-left:auto; background:transparent;border:1px solid #ddd;padding:6px 10px;border-radius:8px;cursor:pointer }
+
+    @media (max-width:900px){
+      .browser-overlay{ inset:4vh 3vw }
+      .sidebar{ display:none }
+    }
+
+    /* 左下角登录信息 */
+    .login-info {
+      position: fixed;
+      bottom: 12px;
+      left: 18px;
+      font-size: 0.9rem;
+      color: #eee;
+      background: rgba(0,0,0,0.3);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: 300;
+      letter-spacing: 0.3px;
+    }
+
+    /* 右上角小日历 */
+    .calendar {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border-radius: 10px;
+      padding: 14px 20px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      animation: swing 4s ease-in-out infinite;
+      transform-origin: top center;
+    }
+
+    @keyframes swing {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(2.5deg); }
+    }
+
+    .calendar h3 {
+      margin: 0;
+      color: var(--coral);
+      font-size: 1.2rem;
+    }
+    .calendar table {
+      margin-top: 8px;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      color: #333;
+    }
+    .calendar td {
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      border-radius: 6px;
+    }
+    .calendar td.highlight {
+      border: 2px solid var(--coral);
+      font-weight: bold;
+      background: #fff3e0;
+    }
+    .calendar small {
+      display: block;
+      margin-top: 8px;
+      color: #666;
+      font-size: 0.75rem;
+    }
+  </style>
 </head>
 <body>
-<div id="box">
-  <h2>🏃‍♀️ 减肥论坛 · 隐藏版</h2>
-  <div id="text" class="fade"></div>
-  <div id="choices"></div>
-</div>
 
-<script>
-const story = [
-  {
-    text: "你是一个热衷减肥的网友，经常混迹于各大论坛。今天你偶然进入一个气氛极好的减肥社区，大家互相鼓励，分享经验。",
-    choices: [{label: "继续浏览帖子", next: 1}]
-  },
-  {
-    text: "几天后，你发现有个神秘的‘隐藏交流区’链接。看起来是给老会员用的。你不确定怎么会出现在你的页面上。",
-    choices: [
-      {label: "点进去看看", next: 2},
-      {label: "忽略它", next: 99}
-    ]
-  },
-  {
-    text: "页面里有很多‘资深帖友’，他们讨论的主题变得诡异——出现了‘季度聚会’、‘分割’、‘献祭’这样的词。",
-    choices: [
-      {label: "继续往下看", next: 3},
-      {label: "截图保存，准备举报", next: 4}
-    ]
-  },
-  {
-    text: "你越看越不对劲。有人提到‘每次聚会后，新人都不再发言’。有人说‘真正的减重，是减去不需要的部分’。",
-    choices: [
-      {label: "搜索“聚会”贴子", next: 5},
-      {label: "退出论坛", next: 99}
-    ]
-  },
-  {
-    text: "当你试图举报时，系统提示：‘你没有访问权限’。奇怪的是，你的头像变成了一只灰色的剪影。",
-    choices: [
-      {label: "重新登录看看", next: 6}
-    ]
-  },
-  {
-    text: "你点进一个名为《极致减重体验》的帖子，内容是模糊的聚会照片。昏暗的灯光下，似乎有人被绑在椅子上。",
-    choices: [
-      {label: "继续查看评论", next: 7},
-      {label: "关闭网页", next: 99}
-    ]
-  },
-  {
-    text: "登录界面闪烁了一下，你似乎误入另一个账号。隐藏区的标题变了：《剥离·净化·重生》。",
-    choices: [
-      {label: "点击进入", next: 8}
-    ]
-  },
-  {
-    text: "评论区的字句越看越诡异：‘轻盈来自献祭’，‘剥离多余的部分’，‘新人将成为真正的我们’。",
-    choices: [
-      {label: "尝试留言", next: 9},
-      {label: "立刻关闭页面", next: 99}
-    ]
-  },
-  {
-    text: "里面写着：‘欢迎回来，cut2025。准备好迎接你的减重仪式了吗？’你的屏幕开始轻微抖动。",
-    choices: [
-      {label: "输入密码：cut2025", next: 10}
-    ]
-  },
-  {
-    text: "你输入了留言，但系统提示：“你已被标记为下次聚会的参与者。”",
-    choices: [
-      {label: "返回论坛首页", next: 11}
-    ]
-  },
-  {
-    text: "页面完全变黑，只剩下一行红字：‘减肥的最高境界——舍弃身体。’ 你感到一阵眩晕……",
-    choices: [
-      {label: "继续", next: 12}
-    ]
-  },
-  {
-    text: "首页的帖子都变了标题：‘新人献祭倒计时三天’。你的用户名赫然在名单之上。",
-    choices: [
-      {label: "逃跑", next: 99},
-      {label: "点击查看详情", next: 13}
-    ]
-  },
-  {
-    text: "突然，你的屏幕泛出血红色。论坛的系统语音低语：‘恭喜你，完成最终减重。’",
-    choices: [
-      {label: "……", next: 100}
-    ]
-  },
-  {
-    text: "页面跳转，显示一行灰色文字：‘本帖已被删除’。",
-    choices: [
-      {label: "结束", next: 100}
-    ]
-  },
-  {
-    text: "你关闭了网页，一切恢复平静。可你的邮箱里，出现了一封新邮件：<br><br><i>“cut2025，欢迎加入我们的下一次聚会。”</i>",
-    choices: [
-      {label: "……", next: 100}
-    ]
-  }
-];
+  <!-- 小艾便利贴 -->
+  <div class="note">
+    <h2>📒 小艾的便利贴</h2>
+    <p>小艾小艾，越减越爱！  
+小艾小艾，轻盈常在！  
+小艾小艾，越努力越可爱！</p>
+    <button id="openBrowser">💻 点击进入浏览器</button>
+  </div>
 
-let step = 0;
+  <!-- 假浏览器 -->
+  <div class="browser-overlay" id="browser">
+    <div class="browser-header">
+      <div class="gugu-logo">gugu</div>
+      <div class="searchbar">
+        <input id="searchInput" placeholder="在 gugu 搜索 或 输入网址（示例：晴朗轻体馆）">
+        <button id="searchBtn">搜索</button>
+      </div>
+      <button class="close-btn" id="closeBrowser">关闭</button>
+    </div>
 
-function render(){
-  const t = story[step];
-  const text = document.getElementById("text");
-  const choices = document.getElementById("choices");
-  text.innerHTML = t.text;
-  choices.innerHTML = "";
-  t.choices.forEach(c=>{
-    const btn=document.createElement("button");
-    btn.textContent=c.label;
-    btn.onclick=()=>{step=c.next; render();};
-    choices.appendChild(btn);
-  });
-  document.body.classList.add("fade");
-}
-render();
-</script>
+    <div class="browser-body">
+      <div class="results" id="results">
+        <div class="result-card" data-site="sunny">
+          <h3>晴朗轻体馆 SunnyShape</h3>
+          <p>在晴朗市，做最轻盈的自己 — 科学的减脂、趣味的社区与本地健身推荐。</p>
+          <p style="margin-top:8px"><a href="website.html" class="enter-site" style="color:var(--green);font-weight:700;">访问网站 →</a></p>
+        </div>
+        <div class="result-card">
+          <h3>减肥论坛讨论串（示例）</h3>
+          <p>“今天打卡完成 HIIT 30 分钟，燃烧了 320 大卡！”</p>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <div class="bookmarks">
+          <h4 style="margin:0 0 8px 0">收藏记录</h4>
+          <div class="bookmark-item">
+            <a href="website.html" class="bookmark-link">晴朗轻体馆 SunnyShape</a>
+            <span style="font-size:0.85rem;color:#888">收藏于 昨晚</span>
+          </div>
+          <div class="bookmark-item">
+            <a href="#" onclick="alert('此为示例书签')">晨跑路线图</a>
+            <span style="font-size:0.85rem;color:#888">收藏于 2025/10/20</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="browser-footer">
+      <div style="font-size:0.95rem;color:#666">已登录：小A（1123456）</div>
+      <div style="font-size:0.95rem;color:#666">网络：晴朗市 WI-FI</div>
+      <button class="close-btn" id="closeBottom">关闭</button>
+    </div>
+  </div>
+
+  <!-- 左下角登录信息 -->
+  <div class="login-info">已登录：艾简菲（aijianfei0602@mm.com）</div>
+
+  <!-- 右上角日历（轻微摆动） -->
+  <div class="calendar">
+    <h3>2024年 6月</h3>
+    <table>
+      <tr><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td class="highlight">1</td><td>2</td></tr>
+      <tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+      <tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td></tr>
+      <tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+      <tr><td>24</td><td>25</td><td class="highlight">26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+    </table>
+    <small>太好啦~6月我就26岁啦 🎉</small>
+  </div>
+
+  <script>
+    const openBtn = document.getElementById('openBrowser');
+    const browser = document.getElementById('browser');
+    const close = document.getElementById('closeBrowser');
+    const closeBottom = document.getElementById('closeBottom');
+    const searchBtn = document.getElementById('searchBtn');
+    const searchInput = document.getElementById('searchInput');
+
+    openBtn.addEventListener('click', ()=>{
+      browser.style.display = 'flex';
+      setTimeout(()=>searchInput.focus(),120);
+    });
+    close.addEventListener('click', ()=> browser.style.display = 'none');
+    closeBottom.addEventListener('click', ()=> browser.style.display = 'none');
+
+    searchBtn.addEventListener('click', ()=>{
+      const q = searchInput.value.trim();
+      if(q.includes('晴朗') || q.includes('轻体') || q.includes('Sunny')){
+        window.location.href = 'website.html';
+      } else {
+        alert('搜索示例：输入 “晴朗轻体馆” 或 点击收藏中的 “晴朗轻体馆 SunnyShape”。');
+      }
+    });
+  </script>
+
 </body>
 </html>
