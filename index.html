@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>减肥论坛·隐藏版</title>
+<style>
+body {
+  font-family: "Microsoft YaHei", sans-serif;
+  background: linear-gradient(180deg, #f8f8f8, #ddd);
+  text-align: center;
+  padding-top: 6%;
+  color: #222;
+  transition: background 1s;
+}
+#box {
+  background: #fff;
+  padding: 30px 40px;
+  display: inline-block;
+  width: 500px;
+  border-radius: 15px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+}
+#text {
+  text-align: left;
+  min-height: 180px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+button {
+  font-size: 1em;
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
+  background: #0078d7;
+  color: white;
+  cursor: pointer;
+}
+button:hover { background: #005fa3; }
+.fade {
+  animation: fadein 1s;
+}
+@keyframes fadein {
+  from { opacity: 0; } to { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div id="box">
+  <h2>🏃‍♀️ 减肥论坛 · 隐藏版</h2>
+  <div id="text" class="fade"></div>
+  <div id="choices"></div>
+</div>
+
+<script>
+const story = [
+  {
+    text: "你是一个热衷减肥的网友，经常混迹于各大论坛。今天你偶然进入一个气氛极好的减肥社区，大家互相鼓励，分享经验。",
+    choices: [{label: "继续浏览帖子", next: 1}]
+  },
+  {
+    text: "几天后，你发现有个神秘的‘隐藏交流区’链接。看起来是给老会员用的。你不确定怎么会出现在你的页面上。",
+    choices: [
+      {label: "点进去看看", next: 2},
+      {label: "忽略它", next: 99}
+    ]
+  },
+  {
+    text: "页面里有很多‘资深帖友’，他们讨论的主题变得诡异——出现了‘季度聚会’、‘分割’、‘献祭’这样的词。",
+    choices: [
+      {label: "继续往下看", next: 3},
+      {label: "截图保存，准备举报", next: 4}
+    ]
+  },
+  {
+    text: "你越看越不对劲。有人提到‘每次聚会后，新人都不再发言’。有人说‘真正的减重，是减去不需要的部分’。",
+    choices: [
+      {label: "搜索“聚会”贴子", next: 5},
+      {label: "退出论坛", next: 99}
+    ]
+  },
+  {
+    text: "当你试图举报时，系统提示：‘你没有访问权限’。奇怪的是，你的头像变成了一只灰色的剪影。",
+    choices: [
+      {label: "重新登录看看", next: 6}
+    ]
+  },
+  {
+    text: "你点进一个名为《极致减重体验》的帖子，内容是模糊的聚会照片。昏暗的灯光下，似乎有人被绑在椅子上。",
+    choices: [
+      {label: "继续查看评论", next: 7},
+      {label: "关闭网页", next: 99}
+    ]
+  },
+  {
+    text: "登录界面闪烁了一下，你似乎误入另一个账号。隐藏区的标题变了：《剥离·净化·重生》。",
+    choices: [
+      {label: "点击进入", next: 8}
+    ]
+  },
+  {
+    text: "评论区的字句越看越诡异：‘轻盈来自献祭’，‘剥离多余的部分’，‘新人将成为真正的我们’。",
+    choices: [
+      {label: "尝试留言", next: 9},
+      {label: "立刻关闭页面", next: 99}
+    ]
+  },
+  {
+    text: "里面写着：‘欢迎回来，cut2025。准备好迎接你的减重仪式了吗？’你的屏幕开始轻微抖动。",
+    choices: [
+      {label: "输入密码：cut2025", next: 10}
+    ]
+  },
+  {
+    text: "你输入了留言，但系统提示：“你已被标记为下次聚会的参与者。”",
+    choices: [
+      {label: "返回论坛首页", next: 11}
+    ]
+  },
+  {
+    text: "页面完全变黑，只剩下一行红字：‘减肥的最高境界——舍弃身体。’ 你感到一阵眩晕……",
+    choices: [
+      {label: "继续", next: 12}
+    ]
+  },
+  {
+    text: "首页的帖子都变了标题：‘新人献祭倒计时三天’。你的用户名赫然在名单之上。",
+    choices: [
+      {label: "逃跑", next: 99},
+      {label: "点击查看详情", next: 13}
+    ]
+  },
+  {
+    text: "突然，你的屏幕泛出血红色。论坛的系统语音低语：‘恭喜你，完成最终减重。’",
+    choices: [
+      {label: "……", next: 100}
+    ]
+  },
+  {
+    text: "页面跳转，显示一行灰色文字：‘本帖已被删除’。",
+    choices: [
+      {label: "结束", next: 100}
+    ]
+  },
+  {
+    text: "你关闭了网页，一切恢复平静。可你的邮箱里，出现了一封新邮件：<br><br><i>“cut2025，欢迎加入我们的下一次聚会。”</i>",
+    choices: [
+      {label: "……", next: 100}
+    ]
+  }
+];
+
+let step = 0;
+
+function render(){
+  const t = story[step];
+  const text = document.getElementById("text");
+  const choices = document.getElementById("choices");
+  text.innerHTML = t.text;
+  choices.innerHTML = "";
+  t.choices.forEach(c=>{
+    const btn=document.createElement("button");
+    btn.textContent=c.label;
+    btn.onclick=()=>{step=c.next; render();};
+    choices.appendChild(btn);
+  });
+  document.body.classList.add("fade");
+}
+render();
+</script>
+</body>
+</html>
