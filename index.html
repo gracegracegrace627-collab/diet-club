@@ -117,7 +117,7 @@
       letter-spacing: 0.3px;
     }
 
-    /* 右上角小日历 */
+    /* 右上角小日历（仅圈出“6月”） */
     .calendar {
       position: fixed;
       top: 24px;
@@ -141,7 +141,13 @@
       margin: 0;
       color: var(--coral);
       font-size: 1.2rem;
+      border: 2px solid var(--coral);
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: #fff3e0;
     }
+
     .calendar table {
       margin-top: 8px;
       border-collapse: collapse;
@@ -154,11 +160,7 @@
       text-align: center;
       border-radius: 6px;
     }
-    .calendar td.highlight {
-      border: 2px solid var(--coral);
-      font-weight: bold;
-      background: #fff3e0;
-    }
+
     .calendar small {
       display: block;
       margin-top: 8px;
@@ -227,16 +229,16 @@
   <!-- 左下角登录信息 -->
   <div class="login-info">已登录：艾简菲（aijianfei0602@mm.com）</div>
 
-  <!-- 右上角日历（轻微摆动） -->
+  <!-- 右上角日历 -->
   <div class="calendar">
     <h3>2024年 6月</h3>
     <table>
       <tr><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td></tr>
-      <tr><td></td><td></td><td></td><td></td><td></td><td class="highlight">1</td><td>2</td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
       <tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
       <tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td></tr>
       <tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
-      <tr><td>24</td><td>25</td><td class="highlight">26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+      <tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
     </table>
     <small>太好啦~6月我就26岁啦 🎉</small>
   </div>
