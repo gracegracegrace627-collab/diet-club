@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SunnyShape 论坛中心 - 小A</title>
+  <style>
+    body {
+      font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom right, #E8F9FD, #FFFBE7);
+      color: #333;
+    }
+    header {
+      background: #5BC0EB;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    section {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      padding: 2rem;
+    }
+    h2 {
+      color: #5BC0EB;
+      border-left: 6px solid #FA7921;
+      padding-left: 10px;
+    }
+    .info {
+      line-height: 1.8;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .section-box {
+      background: #FFFBE7;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+      border: 1.5px dashed #9BC53D;
+    }
+    .data-item {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1rem;
+    }
+    .data-item:last-child {
+      border-bottom: none;
+    }
+    footer {
+      background: #5BC0EB;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+
+    .private-msg {
+      background: #FDE74C;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-top: 2rem;
+    }
+    .msg-item {
+      background: white;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 0.8rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .msg-item:hover {
+      transform: scale(1.02);
+      background: #FFF9D9;
+    }
+    .msg-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: #333;
+    }
+    .msg-sub {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 0.4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>💬 晴朗轻体馆 论坛中心</h1>
+    <p>欢迎回来，小A！</p>
+  </header>
+
+  <section>
+    <h2>👤 账户信息</h2>
+    <div class="info">
+      注册时间：<b>2024/03/05</b><br>
+      上一次上线：<b>2024/05/26</b><br>
+      当前状态：在线
+    </div>
+
+    <h2>📊 我的版块</h2>
+    <div class="section-box">
+      <div class="data-item">卡路里记录：今日摄入 <b>1320 kcal</b>（低于目标 200 kcal）</div>
+      <div class="data-item">体脂变换：当前体脂率 <b>22.4%</b>（较上周下降 0.6%）</div>
+      <div class="data-item">目标曲线图：已完成 <b>63%</b> 的轻体目标</div>
+    </div>
+
+    <h2>📩 网友私信</h2>
+    <div class="private-msg">
+      <div class="msg-item" id="chatFit">
+        <div class="msg-header">
+          <span>FitLamb （ID：yanghaochi000@mm.com）</span>
+          <span>🕑 2024/05/26 下午2:20</span>
+        </div>
+        <div class="msg-sub">
+          对方说：「下周天气还不错」<br>
+          小A 回复：「好的。」
+        </div>
+      </div>
+
+      <div class="msg-item" id="chatChang">
+        <div class="msg-header">
+          <span>常建智 （ID：jianzhi111@mm.com）</span>
+          <span>🕑 2024/05/26 下午2:10</span>
+        </div>
+        <div class="msg-sub">
+          对方说：「你收到了吗？」<br>
+          小A 回复：「嗯嗯，收到啦。」
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 晴朗轻体馆 SunnyShape Forum | 由社区成员共同维护</p>
+  </footer>
+
+  <script>
+    document.getElementById('chatFit').addEventListener('click', () => {
+      window.open('chat-ay.html', '_blank');
+    });
+
+    document.getElementById('chatChang').addEventListener('click', () => {
+      window.open('chat-aj.html', '_blank');
+    });
+  </script>
+
+</body>
+</html>
